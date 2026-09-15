@@ -3,28 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GitHub Extension</title>
+    <title>GitHub tweaks</title>
     <link rel="stylesheet" href="options.css" />
   </head>
   <body>
     <main>
-      <header>
-        <h1>GitHub Extension</h1>
-        <p>Manage GitHub interface enhancements.</p>
+      <header class="standalone-header">
+        <img class="standalone-artwork" src="icons/applejack-family.webp" alt="" />
+        <div>
+          <h1>GitHub tweaks</h1>
+          <p>Keep the useful bits on and the distracting bits out of the way.</p>
+        </div>
       </header>
 
       <form id="settings-form">
         <details class="settings-foldout" open>
           <summary>
             <span>Notifications</span>
-            <span class="summary-meta">GitHub status</span>
+            <span class="summary-meta">Busy status</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
               <input id="hide-inbox-while-busy" type="checkbox" />
               <span>
                 <strong>Hide notifications while Busy</strong>
-                <small>Hides GitHub's notifications inbox whenever your GitHub status is marked Busy.</small>
+                <small>Hide GitHub's notification control whenever your GitHub status is marked Busy.</small>
               </span>
             </label>
           </div>
@@ -32,27 +35,45 @@
 
         <details class="settings-foldout" open>
           <summary>
-            <span>Muted users</span>
-            <span id="muted-users-summary" class="summary-meta">Not configured</span>
+            <span>Muted people</span>
+            <span id="muted-users-summary" class="summary-meta">None</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
               <input id="mute-users-enabled" type="checkbox" />
               <span>
-                <strong>Mute selected users</strong>
-                <small>Hides matching profiles, repositories, comments, avatars, and related GitHub content.</small>
+                <strong>Mute selected people</strong>
+                <small>Hide their profiles, repositories, comments, avatars, and related GitHub content.</small>
               </span>
             </label>
 
-            <label for="muted-users">GitHub usernames</label>
-            <p class="help">Enter one username per line. The leading @ is optional. This list is stored in the browser and preserved across extension updates.</p>
-            <textarea id="muted-users" rows="8" spellcheck="false"></textarea>
+            <p class="help setup-note">This list is stored in the browser and is preserved across extension updates.</p>
+            <div id="muted-users" class="muted-user-list" aria-label="Muted GitHub users"></div>
+            <div class="row-actions">
+              <button id="add-muted-user" class="secondary" type="button">Add person</button>
+            </div>
           </div>
         </details>
 
         <p id="status" role="status" aria-live="polite">Changes save automatically.</p>
       </form>
     </main>
+
+    <template id="muted-user-template">
+      <div class="muted-user-row">
+        <span class="at-sign" aria-hidden="true">@</span>
+        <input
+          class="muted-user-input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-label="Muted GitHub username"
+          placeholder="github-username"
+        />
+        <button class="secondary remove-muted-user" type="button">Remove</button>
+      </div>
+    </template>
 
     <script src="options.js"></script>
   </body>
