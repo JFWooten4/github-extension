@@ -25,3 +25,7 @@ async function initializeMissingSettings() {
 chrome.runtime.onInstalled.addListener(() => {
   void initializeMissingSettings();
 });
+
+chrome.action.onClicked.addListener(() => {
+  void chrome.runtime.openOptionsPage();
+});
