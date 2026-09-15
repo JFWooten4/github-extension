@@ -10,13 +10,25 @@
   const BUSY_ATTR = 'data-github-viewer-busy';
   const BUSY_CACHE_KEY = 'github-viewer-busy';
   const CHECK_INTERVAL_MS = 60_000;
-  const STATUS_URL = '/users/status?compact=1&link_mentions=0&truncate=1';
+  const STATUS_URL = '/users/status?circle=0&compact=1&link_mentions=1&truncate=0';
+  const BUSY_CONTROL_SELECTOR = [
+    'input[name="limited_availability"]',
+    'input.js-user-status-limited-availability-checkbox',
+  ].join(',');
   const CSS = `
     html[${BUSY_ATTR}="true"] #AppHeader-notifications-button,
     html[${BUSY_ATTR}="true"] .AppHeader a[href="/notifications"],
     html[${BUSY_ATTR}="true"] .AppHeader a[href^="/notifications?"],
+    html[${BUSY_ATTR}="true"] .AppHeader a[aria-label*="notification" i],
+    html[${BUSY_ATTR}="true"] .AppHeader button[aria-label*="notification" i],
     html[${BUSY_ATTR}="true"] header[role="banner"] a[href="/notifications"],
-    html[${BUSY_ATTR}="true"] header[role="banner"] a[href^="/notifications?"] {
+    html[${BUSY_ATTR}="true"] header[role="banner"] a[href^="/notifications?"],
+    html[${BUSY_ATTR}="true"] header[role="banner"] a[aria-label*="notification" i],
+    html[${BUSY_ATTR}="true"] header[role="banner"] button[aria-label*="notification" i],
+    html[${BUSY_ATTR}="true"] header[role="banner"] a:has(.octicon-inbox),
+    html[${BUSY_ATTR}="true"] header[role="banner"] button:has(.octicon-inbox),
+    html[${BUSY_ATTR}="true"] header[role="banner"] a:has(.octicon-bell),
+    html[${BUSY_ATTR}="true"] header[role="banner"] button:has(.octicon-bell) {
       display: none !important;
     }
   `;
@@ -64,6 +76,11 @@
     }
   }
 
+  function applyBusyStatus(isBusy) {
+    cacheBusyStatus(isBusy);
+    setBusy(isBusy);
+  }
+
   function restoreCachedBusyStatus() {
     const cachedBusy = readCachedBusyStatus();
     if (cachedBusy === null) return;
@@ -75,7 +92,6 @@
 
     const observer = new MutationObserver(() => {
       if (!document.documentElement) return;
-
       observer.disconnect();
       setBusy(cachedBusy);
     });
@@ -83,9 +99,31 @@
     observer.observe(document, { childList: true });
   }
 
+  function parseBusyStatus(statusDocument) {
+    const busyControl = statusDocument.querySelector(BUSY_CONTROL_SELECTOR);
+    if (busyControl) {
+      return (
+        busyControl.checked ||
+        busyControl.hasAttribute('checked') ||
+        busyControl.getAttribute('aria-checked') === 'true'
+      );
+    }
+
+    const legacyStatus = statusDocument.querySelector('.js-user-status-container');
+    if (legacyStatus) {
+      return legacyStatus.classList.contains('user-status-busy');
+    }
+
+    throw new Error('GitHub status response did not contain a Busy status control');
+  }
+
   async function fetchBusyStatus() {
-    const response = await window.fetch(STATUS_URL, {
+    const statusUrl = new URL(STATUS_URL, window.location.origin);
+    statusUrl.searchParams.set('_', String(Date.now()));
+
+    const response = await window.fetch(statusUrl, {
       credentials: 'same-origin',
+      cache: 'no-store',
       headers: {
         Accept: 'text/html',
         'X-Requested-With': 'XMLHttpRequest',
@@ -98,24 +136,32 @@
 
     const markup = await response.text();
     const statusDocument = new DOMParser().parseFromString(markup, 'text/html');
-    const status = statusDocument.querySelector('.js-user-status-container');
-
-    if (!status) {
-      throw new Error('GitHub status response did not contain a status control');
-    }
-
-    return status.classList.contains('user-status-busy');
+    return parseBusyStatus(statusDocument);
   }
 
   async function checkBusyStatus() {
     try {
-      const isBusy = await fetchBusyStatus();
-      cacheBusyStatus(isBusy);
-      setBusy(isBusy);
+      applyBusyStatus(await fetchBusyStatus());
     } catch (error) {
       console.warn('[GitHub Extension]', error.message);
     }
   }
+
+  function scheduleStatusRefresh() {
+    window.setTimeout(() => void checkBusyStatus(), 500);
+    window.setTimeout(() => void checkBusyStatus(), 1_500);
+  }
+
+  document.addEventListener('submit', (event) => {
+    const form = event.target;
+    if (form instanceof HTMLFormElement && form.matches('.js-user-status-form')) {
+      scheduleStatusRefresh();
+    }
+  }, true);
+
+  document.addEventListener('turbo:load', () => void checkBusyStatus());
+  document.addEventListener('pjax:end', () => void checkBusyStatus());
+  window.addEventListener('focus', () => void checkBusyStatus());
 
   restoreCachedBusyStatus();
 
