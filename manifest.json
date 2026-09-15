@@ -1,12 +1,15 @@
 {
   "manifest_version": 3,
   "name": "GitHub Extension",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Personal GitHub interface enhancements.",
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],
-      "js": ["features/hide-inbox-while-busy.js"],
+      "js": [
+        "features/hide-inbox-while-busy.js",
+        "features/mute-users.js"
+      ],
       "run_at": "document_start"
     }
   ]
