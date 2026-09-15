@@ -7,6 +7,7 @@ const DEFAULT_MUTED_USERS = [
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
 const muteUsersInput = document.getElementById('mute-users-enabled');
 const mutedUsersInput = document.getElementById('muted-users');
+const mutedUsersSummary = document.getElementById('muted-users-summary');
 const status = document.getElementById('status');
 let saveTimer = null;
 
@@ -23,8 +24,14 @@ function normalizeMutedUsers(value) {
     });
 }
 
+function updateMutedUsersSummary(users = normalizeMutedUsers(mutedUsersInput.value)) {
+  mutedUsersSummary.textContent = users.length === 0
+    ? 'None'
+    : users.length === 1 ? '1 user' : `${users.length} users`;
+}
+
 function showSaved() {
-  status.textContent = 'Saved. Reload open GitHub tabs to apply changes.';
+  status.textContent = 'Saved in browser storage. Existing settings are preserved across extension updates.';
   status.dataset.state = 'saved';
 }
 
@@ -35,19 +42,24 @@ async function loadSettings() {
     mutedUsers: DEFAULT_MUTED_USERS,
   });
 
+  const mutedUsers = Array.isArray(settings.mutedUsers)
+    ? settings.mutedUsers
+    : DEFAULT_MUTED_USERS;
+
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
   muteUsersInput.checked = Boolean(settings.muteUsersEnabled);
-  mutedUsersInput.value = (
-    Array.isArray(settings.mutedUsers) ? settings.mutedUsers : DEFAULT_MUTED_USERS
-  ).join('\n');
+  mutedUsersInput.value = mutedUsers.join('\n');
+  updateMutedUsersSummary(mutedUsers);
 }
 
 async function saveSettings() {
+  const mutedUsers = normalizeMutedUsers(mutedUsersInput.value);
   await chrome.storage.local.set({
     hideInboxWhileBusy: hideInboxInput.checked,
     muteUsersEnabled: muteUsersInput.checked,
-    mutedUsers: normalizeMutedUsers(mutedUsersInput.value),
+    mutedUsers,
   });
+  updateMutedUsersSummary(mutedUsers);
   showSaved();
 }
 
@@ -60,6 +72,9 @@ function queueSave() {
 
 hideInboxInput.addEventListener('change', () => void saveSettings());
 muteUsersInput.addEventListener('change', () => void saveSettings());
-mutedUsersInput.addEventListener('input', queueSave);
+mutedUsersInput.addEventListener('input', () => {
+  updateMutedUsersSummary();
+  queueSave();
+});
 
 void loadSettings();

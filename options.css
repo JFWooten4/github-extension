@@ -34,26 +34,40 @@ h1 {
 header p,
 .help,
 small,
+.summary-meta,
 #status {
   color: GrayText;
 }
 
-fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
+.settings-foldout {
+  margin: 0 0 16px;
+  border: 1px solid color-mix(in srgb, CanvasText 16%, transparent);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-legend {
-  margin-bottom: 16px;
-  font-size: 18px;
+.settings-foldout summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  cursor: pointer;
   font-weight: 600;
+  background: color-mix(in srgb, CanvasText 4%, transparent);
 }
 
-hr {
-  margin: 28px 0;
-  border: 0;
-  border-top: 1px solid color-mix(in srgb, CanvasText 16%, transparent);
+.settings-foldout summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary-meta {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.foldout-body {
+  padding: 18px 16px 16px;
 }
 
 .preference {
