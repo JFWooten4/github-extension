@@ -22,10 +22,50 @@ async function initializeMissingSettings() {
   }
 }
 
+async function applyActionIcon() {
+  try {
+    const response = await fetch(chrome.runtime.getURL('icons/applejack-family.webp'));
+    const bitmap = await createImageBitmap(await response.blob());
+    const cropSize = Math.min(bitmap.width, bitmap.height);
+    const sourceX = (bitmap.width - cropSize) / 2;
+    const sourceY = (bitmap.height - cropSize) / 2;
+    const imageData = {};
+
+    for (const size of [16, 32]) {
+      const canvas = new OffscreenCanvas(size, size);
+      const context = canvas.getContext('2d');
+      context.drawImage(
+        bitmap,
+        sourceX,
+        sourceY,
+        cropSize,
+        cropSize,
+        0,
+        0,
+        size,
+        size,
+      );
+      imageData[size] = context.getImageData(0, 0, size, size);
+    }
+
+    bitmap.close?.();
+    await chrome.action.setIcon({ imageData });
+  } catch (error) {
+    console.warn('[GitHub Tweaks] Could not set toolbar icon:', error);
+  }
+}
+
 chrome.runtime.onInstalled.addListener(() => {
   void initializeMissingSettings();
+  void applyActionIcon();
+});
+
+chrome.runtime.onStartup.addListener(() => {
+  void applyActionIcon();
 });
 
 chrome.action.onClicked.addListener(() => {
   void chrome.runtime.openOptionsPage();
 });
+
+void applyActionIcon();
