@@ -1,5 +1,10 @@
-(() => {
+(async () => {
   'use strict';
+
+  const { hideInboxWhileBusy = true } = await chrome.storage.local.get({
+    hideInboxWhileBusy: true,
+  });
+  if (!hideInboxWhileBusy) return;
 
   const STYLE_ID = 'github-extension-hide-inbox-style';
   const BUSY_ATTR = 'data-github-viewer-busy';

@@ -1,8 +1,10 @@
 {
   "manifest_version": 3,
   "name": "GitHub Extension",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Personal GitHub interface enhancements.",
+  "permissions": ["storage"],
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],

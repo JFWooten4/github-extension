@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GitHub Extension</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>GitHub Extension</h1>
+        <p>Manage GitHub interface enhancements.</p>
+      </header>
+
+      <form id="settings-form">
+        <fieldset>
+          <legend>Notifications</legend>
+          <label class="preference">
+            <input id="hide-inbox-while-busy" type="checkbox" />
+            <span>
+              <strong>Hide notifications while Busy</strong>
+              <small>Hides GitHub's notifications inbox whenever your GitHub status is marked Busy.</small>
+            </span>
+          </label>
+        </fieldset>
+
+        <hr />
+
+        <fieldset>
+          <legend>Muted users</legend>
+          <label class="preference">
+            <input id="mute-users-enabled" type="checkbox" />
+            <span>
+              <strong>Mute selected users</strong>
+              <small>Hides matching profiles, repositories, comments, avatars, and related GitHub content.</small>
+            </span>
+          </label>
+
+          <label for="muted-users">GitHub usernames</label>
+          <p class="help">Enter one username per line. The leading @ is optional.</p>
+          <textarea id="muted-users" rows="8" spellcheck="false"></textarea>
+        </fieldset>
+
+        <p id="status" role="status" aria-live="polite">Changes save automatically.</p>
+      </form>
+    </main>
+
+    <script src="options.js"></script>
+  </body>
+</html>

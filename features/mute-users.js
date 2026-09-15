@@ -1,11 +1,22 @@
-(() => {
+(async () => {
   'use strict';
 
-  const MUTED_USERS = new Set([
+  const DEFAULT_MUTED_USERS = [
     'leighmcculloch',
     'rice2000',
     'tomerweller',
-  ].map((username) => username.toLowerCase()));
+  ];
+  const settings = await chrome.storage.local.get({
+    muteUsersEnabled: true,
+    mutedUsers: DEFAULT_MUTED_USERS,
+  });
+  if (!settings.muteUsersEnabled) return;
+
+  const MUTED_USERS = new Set(
+    (Array.isArray(settings.mutedUsers) ? settings.mutedUsers : DEFAULT_MUTED_USERS)
+      .map((username) => String(username).trim().replace(/^@/, '').toLowerCase())
+      .filter(Boolean),
+  );
 
   const PROCESSED_ATTR = 'data-gh-muted-user-processed';
   const AVATAR_PROCESSED_ATTR = 'data-gh-muted-avatar-processed';
