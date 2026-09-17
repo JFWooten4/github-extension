@@ -20,7 +20,7 @@
         <details class="settings-foldout" open>
           <summary>
             <span>Notifications</span>
-            <span class="summary-meta">Busy status</span>
+            <span class="summary-meta">Busy + organization inboxes</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
@@ -30,6 +30,28 @@
                 <small>Hide GitHub's notification control whenever your GitHub status is marked Busy.</small>
               </span>
             </label>
+
+            <hr class="preference-divider" />
+
+            <label class="preference">
+              <input id="organization-notification-inboxes-enabled" type="checkbox" />
+              <span>
+                <strong>Organization notification inboxes</strong>
+                <small>Show a dedicated header icon only while a configured organization has unread notifications.</small>
+              </span>
+            </label>
+
+            <p class="help setup-note">
+              Each icon opens GitHub's notification inbox filtered to that organization, so notifications from other owners stay out of the view.
+            </p>
+            <div
+              id="notification-organizations"
+              class="organization-list"
+              aria-label="Organizations with dedicated notification inboxes"
+            ></div>
+            <div class="row-actions">
+              <button id="add-notification-organization" class="secondary" type="button">Add organization</button>
+            </div>
           </div>
         </details>
 
@@ -58,6 +80,22 @@
         <p id="status" role="status" aria-live="polite">Changes save automatically.</p>
       </form>
     </main>
+
+    <template id="notification-organization-template">
+      <div class="organization-row">
+        <span class="at-sign" aria-hidden="true">@</span>
+        <input
+          class="organization-input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-label="GitHub organization"
+          placeholder="github-organization"
+        />
+        <button class="secondary remove-notification-organization" type="button">Remove</button>
+      </div>
+    </template>
 
     <template id="muted-user-template">
       <div class="muted-user-row">

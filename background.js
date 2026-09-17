@@ -1,5 +1,7 @@
 const DEFAULT_SETTINGS = {
   hideInboxWhileBusy: true,
+  organizationNotificationInboxesEnabled: false,
+  notificationOrganizations: [],
   muteUsersEnabled: true,
   mutedUsers: [
     'leighmcculloch',

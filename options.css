@@ -129,6 +129,12 @@ form {
   line-height: 1.45;
 }
 
+.preference-divider {
+  border: 0;
+  border-top: 1px solid light-dark(#d8dee4, #30363d);
+  margin: 14px 0;
+}
+
 .help {
   font-size: 12px;
   line-height: 1.5;
@@ -142,12 +148,14 @@ form {
   padding: 9px 10px;
 }
 
-.muted-user-list {
+.muted-user-list,
+.organization-list {
   display: grid;
   gap: 8px;
 }
 
-.muted-user-row {
+.muted-user-row,
+.organization-row {
   align-items: center;
   display: grid;
   gap: 7px;
@@ -244,11 +252,13 @@ button.secondary:hover {
     font-size: 22px;
   }
 
-  .muted-user-row {
+  .muted-user-row,
+  .organization-row {
     grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .remove-muted-user {
+  .remove-muted-user,
+  .remove-notification-organization {
     grid-column: 2;
     justify-self: start;
   }
