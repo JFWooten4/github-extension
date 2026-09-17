@@ -5,6 +5,7 @@ const DEFAULT_MUTED_USERS = [
 ];
 
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
+const hideFooterInput = document.getElementById('hide-footer');
 const muteUsersInput = document.getElementById('mute-users-enabled');
 const mutedUsersList = document.getElementById('muted-users');
 const mutedUsersSummary = document.getElementById('muted-users-summary');
@@ -104,11 +105,13 @@ function addMutedUserRow(username = '', { focus = false } = {}) {
 async function loadSettings() {
   const settings = await chrome.storage.local.get({
     hideInboxWhileBusy: true,
+    hideFooter: false,
     muteUsersEnabled: true,
     mutedUsers: DEFAULT_MUTED_USERS,
   });
 
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
+  hideFooterInput.checked = Boolean(settings.hideFooter);
   muteUsersInput.checked = Boolean(settings.muteUsersEnabled);
 
   const mutedUsers = Array.isArray(settings.mutedUsers)
@@ -125,6 +128,7 @@ async function saveSettings() {
   const mutedUsers = mutedUsersFromRows();
   await chrome.storage.local.set({
     hideInboxWhileBusy: hideInboxInput.checked,
+    hideFooter: hideFooterInput.checked,
     muteUsersEnabled: muteUsersInput.checked,
     mutedUsers,
   });
@@ -133,6 +137,7 @@ async function saveSettings() {
 }
 
 hideInboxInput.addEventListener('change', () => void saveSettings());
+hideFooterInput.addEventListener('change', () => void saveSettings());
 muteUsersInput.addEventListener('change', () => void saveSettings());
 addMutedUserButton.addEventListener('click', () => {
   addMutedUserRow('', { focus: true });

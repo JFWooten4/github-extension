@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitHub Tweaks",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Personal GitHub interface tweaks.",
   "permissions": ["storage"],
   "background": {
@@ -16,7 +16,8 @@
       "matches": ["https://github.com/*"],
       "js": [
         "features/hide-inbox-while-busy.js",
-        "features/mute-users.js"
+        "features/mute-users.js",
+        "features/hide-footer.js"
       ],
       "run_at": "document_start"
     }
