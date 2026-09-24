@@ -1,5 +1,6 @@
 const DEFAULT_SETTINGS = {
   hideInboxWhileBusy: true,
+  relativeTimesOnly: false,
   muteUsersEnabled: true,
   mutedUsers: [
     'leighmcculloch',
