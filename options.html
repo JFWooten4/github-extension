@@ -35,15 +35,15 @@
 
         <details class="settings-foldout" open>
           <summary>
-            <span>Pull requests</span>
-            <span class="summary-meta">Contribution notices</span>
+            <span>Interface</span>
+            <span class="summary-meta">Tooltips</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
-              <input id="hide-contributing-guidelines-notice" type="checkbox" />
+              <input id="block-tooltips" type="checkbox" />
               <span>
-                <strong>Hide contributing guidelines reminder</strong>
-                <small>Hide GitHub's “Remember, contributions…” notice when it links to a repository's CONTRIBUTING.md.</small>
+                <strong>Block tooltips</strong>
+                <small>Hide GitHub hover tooltips and browser title popups across GitHub.</small>
               </span>
             </label>
           </div>
@@ -68,6 +68,22 @@
             <div class="row-actions">
               <button id="add-muted-user" class="secondary" type="button">Add person</button>
             </div>
+          </div>
+        </details>
+
+        <details class="settings-foldout" open>
+          <summary>
+            <span>Pull requests</span>
+            <span class="summary-meta">Contribution notices</span>
+          </summary>
+          <div class="foldout-body">
+            <label class="preference">
+              <input id="hide-contributing-guidelines-notice" type="checkbox" />
+              <span>
+                <strong>Hide contributing guidelines reminder</strong>
+                <small>Hide GitHub's “Remember, contributions…” notice when it links to a repository's CONTRIBUTING.md.</small>
+              </span>
+            </label>
           </div>
         </details>
 

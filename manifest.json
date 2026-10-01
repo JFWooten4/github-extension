@@ -3,7 +3,9 @@
   "name": "GitHub Tweaks",
   "version": "0.6.0",
   "description": "Personal GitHub interface tweaks.",
-  "permissions": ["storage"],
+  "permissions": [
+    "storage"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -13,11 +15,14 @@
   "options_page": "options.html",
   "content_scripts": [
     {
-      "matches": ["https://github.com/*"],
+      "matches": [
+        "https://github.com/*"
+      ],
       "js": [
         "features/hide-inbox-while-busy.js",
-        "features/hide-contributing-guidelines-notice.js",
-        "features/mute-users.js"
+        "features/mute-users.js",
+        "features/block-tooltips.js",
+        "features/hide-contributing-guidelines-notice.js"
       ],
       "run_at": "document_start"
     }
