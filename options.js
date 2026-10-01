@@ -4,6 +4,9 @@ const DEFAULT_MUTED_USERS = [
   'tomerweller',
 ];
 
+const blockTooltipsInput = document.getElementById('block-tooltips');
+const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
+const hideFooterInput = document.getElementById('hide-footer');
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
 const organizationInboxesInput = document.getElementById('organization-notification-inboxes-enabled');
 const notificationOrganizationsList = document.getElementById('notification-organizations');
@@ -165,6 +168,9 @@ function addMutedUserRow(username = '', { focus = false } = {}) {
 
 async function loadSettings() {
   const settings = await chrome.storage.local.get({
+    blockTooltips: false,
+    hideContributingGuidelinesNotice: true,
+    hideFooter: false,
     hideInboxWhileBusy: true,
     organizationNotificationInboxesEnabled: false,
     notificationOrganizations: [],
@@ -172,6 +178,9 @@ async function loadSettings() {
     mutedUsers: DEFAULT_MUTED_USERS,
   });
 
+  blockTooltipsInput.checked = Boolean(settings.blockTooltips);
+  hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
+  hideFooterInput.checked = Boolean(settings.hideFooter);
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
   organizationInboxesInput.checked = Boolean(settings.organizationNotificationInboxesEnabled);
   muteUsersInput.checked = Boolean(settings.muteUsersEnabled);
@@ -199,6 +208,9 @@ async function saveSettings() {
   const mutedUsers = mutedUsersFromRows();
 
   await chrome.storage.local.set({
+    blockTooltips: blockTooltipsInput.checked,
+    hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
+    hideFooter: hideFooterInput.checked,
     hideInboxWhileBusy: hideInboxInput.checked,
     organizationNotificationInboxesEnabled: organizationInboxesInput.checked,
     notificationOrganizations,
@@ -210,6 +222,9 @@ async function saveSettings() {
   showSaved();
 }
 
+blockTooltipsInput.addEventListener('change', () => void saveSettings());
+hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
+hideFooterInput.addEventListener('change', () => void saveSettings());
 hideInboxInput.addEventListener('change', () => void saveSettings());
 organizationInboxesInput.addEventListener('change', () => void saveSettings());
 addNotificationOrganizationButton.addEventListener('click', () => {
