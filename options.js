@@ -8,6 +8,7 @@ const blockTooltipsInput = document.getElementById('block-tooltips');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
 const hideFooterInput = document.getElementById('hide-footer');
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
+const relativeTimesInput = document.getElementById('relative-times-only');
 const organizationInboxesInput = document.getElementById('organization-notification-inboxes-enabled');
 const notificationOrganizationsList = document.getElementById('notification-organizations');
 const addNotificationOrganizationButton = document.getElementById('add-notification-organization');
@@ -172,6 +173,7 @@ async function loadSettings() {
     hideContributingGuidelinesNotice: true,
     hideFooter: false,
     hideInboxWhileBusy: true,
+    relativeTimesOnly: false,
     organizationNotificationInboxesEnabled: false,
     notificationOrganizations: [],
     muteUsersEnabled: true,
@@ -182,6 +184,7 @@ async function loadSettings() {
   hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
   hideFooterInput.checked = Boolean(settings.hideFooter);
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
+  relativeTimesInput.checked = Boolean(settings.relativeTimesOnly);
   organizationInboxesInput.checked = Boolean(settings.organizationNotificationInboxesEnabled);
   muteUsersInput.checked = Boolean(settings.muteUsersEnabled);
 
@@ -212,6 +215,7 @@ async function saveSettings() {
     hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
     hideFooter: hideFooterInput.checked,
     hideInboxWhileBusy: hideInboxInput.checked,
+    relativeTimesOnly: relativeTimesInput.checked,
     organizationNotificationInboxesEnabled: organizationInboxesInput.checked,
     notificationOrganizations,
     muteUsersEnabled: muteUsersInput.checked,
@@ -226,6 +230,7 @@ blockTooltipsInput.addEventListener('change', () => void saveSettings());
 hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
 hideFooterInput.addEventListener('change', () => void saveSettings());
 hideInboxInput.addEventListener('change', () => void saveSettings());
+relativeTimesInput.addEventListener('change', () => void saveSettings());
 organizationInboxesInput.addEventListener('change', () => void saveSettings());
 addNotificationOrganizationButton.addEventListener('click', () => {
   addNotificationOrganizationRow('', { focus: true });

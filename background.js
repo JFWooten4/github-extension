@@ -1,5 +1,6 @@
 const DEFAULT_SETTINGS = {
   hideInboxWhileBusy: true,
+  relativeTimesOnly: false,
   organizationNotificationInboxesEnabled: false,
   notificationOrganizations: [],
   hideContributingGuidelinesNotice: true,

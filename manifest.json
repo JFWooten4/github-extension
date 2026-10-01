@@ -24,7 +24,8 @@
         "features/block-tooltips.js",
         "features/hide-contributing-guidelines-notice.js",
         "features/hide-footer.js",
-        "features/organization-notifications.js"
+        "features/organization-notifications.js",
+        "features/relative-times.js"
       ],
       "run_at": "document_start"
     }
