@@ -20,7 +20,7 @@
         <details class="settings-foldout" open>
           <summary>
             <span>Notifications</span>
-            <span class="summary-meta">Busy status</span>
+            <span class="summary-meta">Busy + organization inboxes</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
@@ -28,6 +28,44 @@
               <span>
                 <strong>Hide notifications while Busy</strong>
                 <small>Hide GitHub's notification control whenever your GitHub status is marked Busy.</small>
+              </span>
+            </label>
+
+            <hr class="preference-divider" />
+
+            <label class="preference">
+              <input id="organization-notification-inboxes-enabled" type="checkbox" />
+              <span>
+                <strong>Organization notification inboxes</strong>
+                <small>Show a dedicated header icon only while a configured organization has unread notifications.</small>
+              </span>
+            </label>
+
+            <p class="help setup-note">
+              Each icon opens GitHub's notification inbox filtered to that organization, so notifications from other owners stay out of the view.
+            </p>
+            <div
+              id="notification-organizations"
+              class="organization-list"
+              aria-label="Organizations with dedicated notification inboxes"
+            ></div>
+            <div class="row-actions">
+              <button id="add-notification-organization" class="secondary" type="button">Add organization</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="settings-foldout" open>
+          <summary>
+            <span>Interface</span>
+            <span class="summary-meta">Tooltips</span>
+          </summary>
+          <div class="foldout-body">
+            <label class="preference">
+              <input id="block-tooltips" type="checkbox" />
+              <span>
+                <strong>Block tooltips</strong>
+                <small>Hide GitHub hover tooltips and browser title popups across GitHub.</small>
               </span>
             </label>
           </div>
@@ -71,9 +109,57 @@
           </div>
         </details>
 
+        <details class="settings-foldout" open>
+          <summary>
+            <span>Pull requests</span>
+            <span class="summary-meta">Contribution notices</span>
+          </summary>
+          <div class="foldout-body">
+            <label class="preference">
+              <input id="hide-contributing-guidelines-notice" type="checkbox" />
+              <span>
+                <strong>Hide contributing guidelines reminder</strong>
+                <small>Hide GitHub's “Remember, contributions…” notice when it links to a repository's CONTRIBUTING.md.</small>
+              </span>
+            </label>
+          </div>
+        </details>
+
+        <details class="settings-foldout" open>
+          <summary>
+            <span>Interface</span>
+            <span class="summary-meta">Footer</span>
+          </summary>
+          <div class="foldout-body">
+            <label class="preference">
+              <input id="hide-footer" type="checkbox" />
+              <span>
+                <strong>Hide GitHub footer</strong>
+                <small>Hide GitHub's sitewide footer, including the copyright, legal, support, and cookie links.</small>
+              </span>
+            </label>
+          </div>
+        </details>
+
         <p id="status" role="status" aria-live="polite">Changes save automatically.</p>
       </form>
     </main>
+
+    <template id="notification-organization-template">
+      <div class="organization-row">
+        <span class="at-sign" aria-hidden="true">@</span>
+        <input
+          class="organization-input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-label="GitHub organization"
+          placeholder="github-organization"
+        />
+        <button class="secondary remove-notification-organization" type="button">Remove</button>
+      </div>
+    </template>
 
     <template id="muted-user-template">
       <div class="muted-user-row">
