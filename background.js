@@ -5,11 +5,7 @@ const DEFAULT_SETTINGS = {
   notificationOrganizations: [],
   hideContributingGuidelinesNotice: true,
   muteUsersEnabled: true,
-  mutedUsers: [
-    'leighmcculloch',
-    'rice2000',
-    'tomerweller',
-  ],
+  mutedUsers: [],
 };
 
 async function initializeMissingSettings() {
@@ -55,7 +51,7 @@ async function applyActionIcon() {
     bitmap.close?.();
     await chrome.action.setIcon({ imageData });
   } catch (error) {
-    console.warn('[GitHub Tweaks] Could not set toolbar icon:', error);
+    console.warn('[Fractured Github] Could not set toolbar icon:', error);
   }
 }
 

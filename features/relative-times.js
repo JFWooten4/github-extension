@@ -76,7 +76,15 @@
     const label = relativePhrase(date);
 
     if (element.textContent !== label) element.textContent = label;
-    if (element.getAttribute('title') !== label) element.setAttribute('title', label);
+    if (element.shadowRoot && element.shadowRoot.textContent !== label) {
+      element.shadowRoot.textContent = label;
+    }
+    if (document.getElementById('github-tweaks-block-tooltips-style')) {
+      element.setAttribute('data-github-tweaks-blocked-title', label);
+      element.removeAttribute('title');
+    } else if (element.getAttribute('title') !== label) {
+      element.setAttribute('title', label);
+    }
   }
 
   function processTree(root = document) {
@@ -176,6 +184,10 @@
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName !== 'local' || !(SETTING_KEY in changes)) return;
     setEnabled(Boolean(changes[SETTING_KEY].newValue));
+  });
+
+  document.addEventListener('relative-time-updated', (event) => {
+    if (enabled) applyRelativeTime(event.target);
   });
 
   document.addEventListener('turbo:load', () => processTree());

@@ -1,11 +1,7 @@
 (async () => {
   'use strict';
 
-  const DEFAULT_MUTED_USERS = [
-    'leighmcculloch',
-    'rice2000',
-    'tomerweller',
-  ];
+  const DEFAULT_MUTED_USERS = [];
   const settings = await chrome.storage.local.get({
     muteUsersEnabled: true,
     mutedUsers: DEFAULT_MUTED_USERS,

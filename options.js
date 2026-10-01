@@ -1,8 +1,4 @@
-const DEFAULT_MUTED_USERS = [
-  'leighmcculloch',
-  'rice2000',
-  'tomerweller',
-];
+const DEFAULT_MUTED_USERS = [];
 
 const blockTooltipsInput = document.getElementById('block-tooltips');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');

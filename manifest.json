@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "GitHub Tweaks",
+  "name": "Fractured Github",
   "version": "0.6.0",
   "description": "Personal GitHub interface tweaks.",
   "permissions": [
@@ -10,7 +10,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "GitHub settings",
+    "default_title": "Fractured Github",
     "default_icon": {
       "16": "icons/fractured-16.png",
       "32": "icons/fractured-32.png",
