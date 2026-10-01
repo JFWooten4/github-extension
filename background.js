@@ -28,7 +28,7 @@ async function initializeMissingSettings() {
 
 async function applyActionIcon() {
   try {
-    const response = await fetch(chrome.runtime.getURL('icons/applejack-family.webp'));
+    const response = await fetch(chrome.runtime.getURL('icons/fractured.png'));
     const bitmap = await createImageBitmap(await response.blob());
     const cropSize = Math.min(bitmap.width, bitmap.height);
     const sourceX = (bitmap.width - cropSize) / 2;
