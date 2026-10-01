@@ -24,6 +24,9 @@
       "matches": [
         "https://github.com/*"
       ],
+      "css": [
+        "features/pony-headings.css"
+      ],
       "js": [
         "features/hide-inbox-while-busy.js",
         "features/mute-users.js",
@@ -34,6 +37,16 @@
         "features/relative-times.js"
       ],
       "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/Fascinate-Regular.ttf"
+      ],
+      "matches": [
+        "https://github.com/*"
+      ]
     }
   ],
   "icons": {
