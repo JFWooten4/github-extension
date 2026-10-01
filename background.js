@@ -51,7 +51,7 @@ async function applyActionIcon() {
     bitmap.close?.();
     await chrome.action.setIcon({ imageData });
   } catch (error) {
-    console.warn('[Fractured Github] Could not set toolbar icon:', error);
+    console.warn('[Fractured GitHub] Could not set toolbar icon:', error);
   }
 }
 
