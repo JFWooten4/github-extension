@@ -6,6 +6,7 @@ const DEFAULT_SETTINGS = {
   notificationOrganizations: [],
   hideContributingGuidelinesNotice: true,
   hideSuggestedWorkflows: false,
+  hideMyNavigationLinks: false,
   muteUsersEnabled: true,
   mutedUsers: [],
 };
