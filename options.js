@@ -65,6 +65,44 @@ function notificationOrganizationsFromRows() {
   );
 }
 
+function addListEntryKeyboardBehavior({
+  input,
+  list,
+  inputSelector,
+  normalize,
+  addRow,
+  afterCommit = () => {},
+}) {
+  input.addEventListener('keydown', (event) => {
+    const shouldAdvance = event.key === 'Enter'
+      || (event.key === 'Tab' && !event.shiftKey);
+
+    if (!shouldAdvance) return;
+
+    const value = normalize(input.value);
+
+    if (!value) {
+      if (event.key === 'Enter') event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
+    input.value = value;
+    afterCommit();
+    queueSave();
+
+    const inputs = [...list.querySelectorAll(inputSelector)];
+    const nextInput = inputs[inputs.indexOf(input) + 1];
+
+    if (nextInput) {
+      nextInput.focus();
+      return;
+    }
+
+    addRow('', { focus: true });
+  });
+}
+
 function updateSummary(users = mutedUsersFromRows()) {
   mutedUsersSummary.textContent = users.length === 0
     ? 'None'
@@ -120,6 +158,13 @@ function addNotificationOrganizationRow(organization = '', { focus = false } = {
   const removeButton = row.querySelector('.remove-notification-organization');
 
   input.value = organization;
+  addListEntryKeyboardBehavior({
+    input,
+    list: notificationOrganizationsList,
+    inputSelector: '.organization-input',
+    normalize: normalizeOrganization,
+    addRow: addNotificationOrganizationRow,
+  });
   input.addEventListener('input', queueSave);
   input.addEventListener('blur', () => {
     input.value = normalizeOrganization(input.value);
@@ -144,6 +189,14 @@ function addMutedUserRow(username = '', { focus = false } = {}) {
   const removeButton = row.querySelector('.remove-muted-user');
 
   input.value = username;
+  addListEntryKeyboardBehavior({
+    input,
+    list: mutedUsersList,
+    inputSelector: '.muted-user-input',
+    normalize: normalizeUsername,
+    addRow: addMutedUserRow,
+    afterCommit: updateSummary,
+  });
   input.addEventListener('input', () => {
     updateSummary();
     queueSave();
