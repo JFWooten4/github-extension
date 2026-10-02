@@ -29,6 +29,11 @@
   function blockTitle(element) {
     if (!(element instanceof Element) || !element.hasAttribute('title')) return;
 
+    if (element.matches('relative-time, time-ago, local-time') && !element.hasAttribute('no-title')) {
+      element.setAttribute('data-github-tweaks-added-no-title', 'true');
+      element.setAttribute('no-title', '');
+    }
+
     const title = element.getAttribute('title') || '';
     element.setAttribute(BLOCKED_TITLE_ATTRIBUTE, title);
 
@@ -50,6 +55,11 @@
     for (const element of document.querySelectorAll(`[${BLOCKED_TITLE_ATTRIBUTE}]`)) {
       element.setAttribute('title', element.getAttribute(BLOCKED_TITLE_ATTRIBUTE) || '');
       element.removeAttribute(BLOCKED_TITLE_ATTRIBUTE);
+
+      if (element.hasAttribute('data-github-tweaks-added-no-title')) {
+        element.removeAttribute('no-title');
+        element.removeAttribute('data-github-tweaks-added-no-title');
+      }
 
       if (element.hasAttribute(ADDED_ARIA_ATTRIBUTE)) {
         element.removeAttribute('aria-label');

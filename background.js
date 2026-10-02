@@ -1,15 +1,12 @@
 const DEFAULT_SETTINGS = {
+  hideCopilot: true,
   hideInboxWhileBusy: true,
   relativeTimesOnly: false,
   organizationNotificationInboxesEnabled: false,
   notificationOrganizations: [],
   hideContributingGuidelinesNotice: true,
   muteUsersEnabled: true,
-  mutedUsers: [
-    'leighmcculloch',
-    'rice2000',
-    'tomerweller',
-  ],
+  mutedUsers: [],
 };
 
 async function initializeMissingSettings() {
@@ -55,7 +52,7 @@ async function applyActionIcon() {
     bitmap.close?.();
     await chrome.action.setIcon({ imageData });
   } catch (error) {
-    console.warn('[GitHub Tweaks] Could not set toolbar icon:', error);
+    console.warn('[Fractured GitHub] Could not set toolbar icon:', error);
   }
 }
 
