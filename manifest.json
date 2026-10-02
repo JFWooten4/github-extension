@@ -35,6 +35,7 @@
         "features/hide-contributing-guidelines-notice.js",
         "features/hide-footer.js",
         "features/hide-suggested-workflows.js",
+        "features/hide-unused-repository-tabs.js",
         "features/organization-notifications.js",
         "features/relative-times.js"
       ],
