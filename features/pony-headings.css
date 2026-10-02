@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "GitHub Tweaks Pony Display";
-  src: url("chrome-extension://__MSG_@@extension_id__/fonts/Fascinate-Regular.ttf") format("truetype");
+  font-family: "Celestia Medium Redux";
+  src: url("chrome-extension://__MSG_@@extension_id__/fonts/CelestiaMediumRedux.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -12,6 +12,6 @@
   [itemprop="name"],
   .AppHeader-context-item-label
 ) {
-  font-family: "GitHub Tweaks Pony Display", "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family: "Celestia Medium Redux", "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   font-weight: 400;
 }
