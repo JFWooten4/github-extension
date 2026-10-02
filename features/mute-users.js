@@ -13,6 +13,7 @@
       .map((username) => String(username).trim().replace(/^@/, '').toLowerCase())
       .filter(Boolean),
   );
+  if (MUTED_USERS.size === 0) return;
 
   const PROCESSED_ATTR = 'data-gh-muted-user-processed';
   const AVATAR_PROCESSED_ATTR = 'data-gh-muted-avatar-processed';
@@ -380,6 +381,9 @@
     const main = document.querySelector('main');
     if (!main) return;
 
+    // Keep the existing notice and its focused button across DOM updates.
+    if (notice) return;
+
     if (!notice) {
       notice = document.createElement('div');
       notice.className = MUTED_PAGE_NOTICE_CLASS;
@@ -562,6 +566,20 @@
   }
 
   let scanQueued = false;
+  let observer = null;
+
+  function scanPage() {
+    // Extension-owned placeholders and notices must not schedule another scan.
+    observer?.disconnect();
+    try {
+      scan(document);
+    } finally {
+      observer?.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+    }
+  }
 
   function queueScan() {
     if (scanQueued) return;
@@ -569,18 +587,13 @@
 
     requestAnimationFrame(() => {
       scanQueued = false;
-      scan(document);
+      scanPage();
     });
   }
 
   function start() {
-    scan(document);
-
-    const observer = new MutationObserver(queueScan);
-    observer.observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-    });
+    observer = new MutationObserver(queueScan);
+    scanPage();
 
     document.addEventListener('turbo:load', queueScan);
     document.addEventListener('pjax:end', queueScan);
