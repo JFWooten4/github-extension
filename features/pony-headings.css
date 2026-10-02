@@ -10,7 +10,8 @@
   h1,
   .vcard-fullname,
   [itemprop="name"],
-  .AppHeader-context-item-label
+  .AppHeader-context-item-label,
+  .GlobalNav [data-component="Breadcrumbs.Item"]
 ) {
   font-family: "Celestia Medium Redux", "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   font-weight: 400;
