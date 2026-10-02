@@ -1,6 +1,7 @@
 const DEFAULT_MUTED_USERS = [];
 
 const blockTooltipsInput = document.getElementById('block-tooltips');
+const hideCopilotInput = document.getElementById('hide-copilot');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
 const hideFooterInput = document.getElementById('hide-footer');
 const hideSuggestedWorkflowsInput = document.getElementById('hide-suggested-workflows');
@@ -167,6 +168,7 @@ function addMutedUserRow(username = '', { focus = false } = {}) {
 async function loadSettings() {
   const settings = await chrome.storage.local.get({
     blockTooltips: false,
+    hideCopilot: true,
     hideContributingGuidelinesNotice: true,
     hideFooter: false,
     hideSuggestedWorkflows: false,
@@ -179,6 +181,7 @@ async function loadSettings() {
   });
 
   blockTooltipsInput.checked = Boolean(settings.blockTooltips);
+  hideCopilotInput.checked = Boolean(settings.hideCopilot);
   hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
   hideFooterInput.checked = Boolean(settings.hideFooter);
   hideSuggestedWorkflowsInput.checked = Boolean(settings.hideSuggestedWorkflows);
@@ -211,6 +214,7 @@ async function saveSettings() {
 
   await chrome.storage.local.set({
     blockTooltips: blockTooltipsInput.checked,
+    hideCopilot: hideCopilotInput.checked,
     hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
     hideFooter: hideFooterInput.checked,
     hideSuggestedWorkflows: hideSuggestedWorkflowsInput.checked,
@@ -227,6 +231,7 @@ async function saveSettings() {
 }
 
 blockTooltipsInput.addEventListener('change', () => void saveSettings());
+hideCopilotInput.addEventListener('change', () => void saveSettings());
 hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
 hideFooterInput.addEventListener('change', () => void saveSettings());
 hideSuggestedWorkflowsInput.addEventListener('change', () => void saveSettings());

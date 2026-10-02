@@ -19,6 +19,8 @@
     html[${BUSY_ATTR}="true"] #AppHeader-notifications-button,
     html[${BUSY_ATTR}="true"] .AppHeader a[href="/notifications"],
     html[${BUSY_ATTR}="true"] .AppHeader a[href^="/notifications?"],
+    html[${BUSY_ATTR}="true"] .GlobalNav a[href="/notifications"],
+    html[${BUSY_ATTR}="true"] .GlobalNav a[href^="/notifications?"],
     html[${BUSY_ATTR}="true"] .AppHeader a[aria-label*="notification" i],
     html[${BUSY_ATTR}="true"] .AppHeader button[aria-label*="notification" i],
     html[${BUSY_ATTR}="true"] header[role="banner"] a[href="/notifications"],
