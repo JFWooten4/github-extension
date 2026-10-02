@@ -1,4 +1,5 @@
 const DEFAULT_SETTINGS = {
+  hideCopilot: true,
   hideInboxWhileBusy: true,
   relativeTimesOnly: false,
   organizationNotificationInboxesEnabled: false,
