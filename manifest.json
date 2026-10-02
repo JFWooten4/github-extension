@@ -33,6 +33,7 @@
         "features/mute-users.js",
         "features/block-tooltips.js",
         "features/hide-contributing-guidelines-notice.js",
+        "features/hide-notification-reason.js",
         "features/hide-footer.js",
         "features/hide-suggested-workflows.js",
         "features/organization-notifications.js",
