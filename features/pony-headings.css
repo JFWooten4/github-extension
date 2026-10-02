@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Celestia Medium Redux";
+  src: url("chrome-extension://__MSG_@@extension_id__/fonts/CelestiaMediumRedux.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:is(
+  h1,
+  .vcard-fullname,
+  [itemprop="name"],
+  .AppHeader-context-item-label
+) {
+  font-family: "Celestia Medium Redux", "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 400;
+}
