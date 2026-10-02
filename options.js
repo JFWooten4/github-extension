@@ -3,6 +3,7 @@ const DEFAULT_MUTED_USERS = [];
 const blockTooltipsInput = document.getElementById('block-tooltips');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
 const hideFooterInput = document.getElementById('hide-footer');
+const hideSuggestedWorkflowsInput = document.getElementById('hide-suggested-workflows');
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
 const relativeTimesInput = document.getElementById('relative-times-only');
 const organizationInboxesInput = document.getElementById('organization-notification-inboxes-enabled');
@@ -168,6 +169,7 @@ async function loadSettings() {
     blockTooltips: false,
     hideContributingGuidelinesNotice: true,
     hideFooter: false,
+    hideSuggestedWorkflows: false,
     hideInboxWhileBusy: true,
     relativeTimesOnly: false,
     organizationNotificationInboxesEnabled: false,
@@ -179,6 +181,7 @@ async function loadSettings() {
   blockTooltipsInput.checked = Boolean(settings.blockTooltips);
   hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
   hideFooterInput.checked = Boolean(settings.hideFooter);
+  hideSuggestedWorkflowsInput.checked = Boolean(settings.hideSuggestedWorkflows);
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
   relativeTimesInput.checked = Boolean(settings.relativeTimesOnly);
   organizationInboxesInput.checked = Boolean(settings.organizationNotificationInboxesEnabled);
@@ -210,6 +213,7 @@ async function saveSettings() {
     blockTooltips: blockTooltipsInput.checked,
     hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
     hideFooter: hideFooterInput.checked,
+    hideSuggestedWorkflows: hideSuggestedWorkflowsInput.checked,
     hideInboxWhileBusy: hideInboxInput.checked,
     relativeTimesOnly: relativeTimesInput.checked,
     organizationNotificationInboxesEnabled: organizationInboxesInput.checked,
@@ -225,6 +229,7 @@ async function saveSettings() {
 blockTooltipsInput.addEventListener('change', () => void saveSettings());
 hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
 hideFooterInput.addEventListener('change', () => void saveSettings());
+hideSuggestedWorkflowsInput.addEventListener('change', () => void saveSettings());
 hideInboxInput.addEventListener('change', () => void saveSettings());
 relativeTimesInput.addEventListener('change', () => void saveSettings());
 organizationInboxesInput.addEventListener('change', () => void saveSettings());
