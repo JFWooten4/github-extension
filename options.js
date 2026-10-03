@@ -1,5 +1,7 @@
 const DEFAULT_MUTED_USERS = [];
 
+const commitTitleEmojisInput = document.getElementById('commit-title-emojis');
+
 const blockTooltipsInput = document.getElementById('block-tooltips');
 const hideCopilotInput = document.getElementById('hide-copilot');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
@@ -220,6 +222,7 @@ function addMutedUserRow(username = '', { focus = false } = {}) {
 
 async function loadSettings() {
   const settings = await chrome.storage.local.get({
+    commitTitleEmojis: false,
     blockTooltips: false,
     hideCopilot: true,
     hideContributingGuidelinesNotice: true,
@@ -233,6 +236,7 @@ async function loadSettings() {
     mutedUsers: DEFAULT_MUTED_USERS,
   });
 
+  commitTitleEmojisInput.checked = Boolean(settings.commitTitleEmojis);
   blockTooltipsInput.checked = Boolean(settings.blockTooltips);
   hideCopilotInput.checked = Boolean(settings.hideCopilot);
   hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
@@ -266,6 +270,7 @@ async function saveSettings() {
   const mutedUsers = mutedUsersFromRows();
 
   await chrome.storage.local.set({
+    commitTitleEmojis: commitTitleEmojisInput.checked,
     blockTooltips: blockTooltipsInput.checked,
     hideCopilot: hideCopilotInput.checked,
     hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
@@ -283,6 +288,7 @@ async function saveSettings() {
   showSaved();
 }
 
+commitTitleEmojisInput.addEventListener('change', () => void saveSettings());
 blockTooltipsInput.addEventListener('change', () => void saveSettings());
 hideCopilotInput.addEventListener('change', () => void saveSettings());
 hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
