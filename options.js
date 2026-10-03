@@ -6,6 +6,7 @@ const simplifyCommitMessagesInput = document.getElementById('simplify-commit-mes
 const blockTooltipsInput = document.getElementById('block-tooltips');
 const hideCopilotInput = document.getElementById('hide-copilot');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
+const hidePullRequestMilestoneInput = document.getElementById('hide-pull-request-milestone');
 const hideFooterInput = document.getElementById('hide-footer');
 const hideSuggestedWorkflowsInput = document.getElementById('hide-suggested-workflows');
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
@@ -228,6 +229,7 @@ async function loadSettings() {
     blockTooltips: false,
     hideCopilot: true,
     hideContributingGuidelinesNotice: true,
+    hidePullRequestMilestone: false,
     hideFooter: false,
     hideSuggestedWorkflows: false,
     hideInboxWhileBusy: true,
@@ -243,6 +245,7 @@ async function loadSettings() {
   blockTooltipsInput.checked = Boolean(settings.blockTooltips);
   hideCopilotInput.checked = Boolean(settings.hideCopilot);
   hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
+  hidePullRequestMilestoneInput.checked = Boolean(settings.hidePullRequestMilestone);
   hideFooterInput.checked = Boolean(settings.hideFooter);
   hideSuggestedWorkflowsInput.checked = Boolean(settings.hideSuggestedWorkflows);
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
@@ -278,6 +281,7 @@ async function saveSettings() {
     blockTooltips: blockTooltipsInput.checked,
     hideCopilot: hideCopilotInput.checked,
     hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
+    hidePullRequestMilestone: hidePullRequestMilestoneInput.checked,
     hideFooter: hideFooterInput.checked,
     hideSuggestedWorkflows: hideSuggestedWorkflowsInput.checked,
     hideInboxWhileBusy: hideInboxInput.checked,
@@ -297,6 +301,7 @@ simplifyCommitMessagesInput.addEventListener('change', () => void saveSettings()
 blockTooltipsInput.addEventListener('change', () => void saveSettings());
 hideCopilotInput.addEventListener('change', () => void saveSettings());
 hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
+hidePullRequestMilestoneInput.addEventListener('change', () => void saveSettings());
 hideFooterInput.addEventListener('change', () => void saveSettings());
 hideSuggestedWorkflowsInput.addEventListener('change', () => void saveSettings());
 hideInboxInput.addEventListener('change', () => void saveSettings());

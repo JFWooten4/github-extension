@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   organizationNotificationInboxesEnabled: false,
   notificationOrganizations: [],
   hideContributingGuidelinesNotice: true,
+  hidePullRequestMilestone: false,
   hideSuggestedWorkflows: false,
   muteUsersEnabled: true,
   mutedUsers: [],
