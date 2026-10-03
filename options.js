@@ -8,6 +8,7 @@ const hideCopilotInput = document.getElementById('hide-copilot');
 const hideContributingGuidelinesNoticeInput = document.getElementById('hide-contributing-guidelines-notice');
 const hidePullRequestMilestoneInput = document.getElementById('hide-pull-request-milestone');
 const hideFooterInput = document.getElementById('hide-footer');
+const hideMyNavigationLinksInput = document.getElementById('hide-my-navigation-links');
 const hideSuggestedWorkflowsInput = document.getElementById('hide-suggested-workflows');
 const hideInboxInput = document.getElementById('hide-inbox-while-busy');
 const relativeTimesInput = document.getElementById('relative-times-only');
@@ -231,6 +232,7 @@ async function loadSettings() {
     hideContributingGuidelinesNotice: true,
     hidePullRequestMilestone: false,
     hideFooter: false,
+    hideMyNavigationLinks: false,
     hideSuggestedWorkflows: false,
     hideInboxWhileBusy: true,
     relativeTimesOnly: false,
@@ -247,6 +249,7 @@ async function loadSettings() {
   hideContributingGuidelinesNoticeInput.checked = Boolean(settings.hideContributingGuidelinesNotice);
   hidePullRequestMilestoneInput.checked = Boolean(settings.hidePullRequestMilestone);
   hideFooterInput.checked = Boolean(settings.hideFooter);
+  hideMyNavigationLinksInput.checked = Boolean(settings.hideMyNavigationLinks);
   hideSuggestedWorkflowsInput.checked = Boolean(settings.hideSuggestedWorkflows);
   hideInboxInput.checked = Boolean(settings.hideInboxWhileBusy);
   relativeTimesInput.checked = Boolean(settings.relativeTimesOnly);
@@ -283,6 +286,7 @@ async function saveSettings() {
     hideContributingGuidelinesNotice: hideContributingGuidelinesNoticeInput.checked,
     hidePullRequestMilestone: hidePullRequestMilestoneInput.checked,
     hideFooter: hideFooterInput.checked,
+    hideMyNavigationLinks: hideMyNavigationLinksInput.checked,
     hideSuggestedWorkflows: hideSuggestedWorkflowsInput.checked,
     hideInboxWhileBusy: hideInboxInput.checked,
     relativeTimesOnly: relativeTimesInput.checked,
@@ -303,6 +307,7 @@ hideCopilotInput.addEventListener('change', () => void saveSettings());
 hideContributingGuidelinesNoticeInput.addEventListener('change', () => void saveSettings());
 hidePullRequestMilestoneInput.addEventListener('change', () => void saveSettings());
 hideFooterInput.addEventListener('change', () => void saveSettings());
+hideMyNavigationLinksInput.addEventListener('change', () => void saveSettings());
 hideSuggestedWorkflowsInput.addEventListener('change', () => void saveSettings());
 hideInboxInput.addEventListener('change', () => void saveSettings());
 relativeTimesInput.addEventListener('change', () => void saveSettings());

@@ -9,6 +9,7 @@ const DEFAULT_SETTINGS = {
   hideContributingGuidelinesNotice: true,
   hidePullRequestMilestone: false,
   hideSuggestedWorkflows: false,
+  hideMyNavigationLinks: false,
   muteUsersEnabled: true,
   mutedUsers: [],
 };
