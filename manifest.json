@@ -38,7 +38,8 @@
         "features/organization-notifications.js",
         "features/relative-times.js",
         "features/commit-title-emojis.js",
-        "features/commit-message-simplifier.js"
+        "features/commit-message-simplifier.js",
+        "features/wrap-diff-lines.js"
       ],
       "run_at": "document_start"
     }
