@@ -187,8 +187,14 @@
     }
   }
 
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) for (const node of mutation.addedNodes) scan(node);
+  let scanQueued = false;
+  const observer = new MutationObserver(() => {
+    if (scanQueued) return;
+    scanQueued = true;
+    queueMicrotask(() => {
+      scanQueued = false;
+      scan();
+    });
   });
   const scanPage = () => scan();
 
@@ -203,7 +209,8 @@
     document.removeEventListener('pjax:end', scanPage);
     window.removeEventListener('popstate', scanPage);
     if (!enabled) return;
-    observer.observe(document, { childList: true, subtree: true });
+    // Generated input values and textarea text can arrive after the dialog.
+    observer.observe(document, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['value'] });
     document.addEventListener('submit', beforeSubmit, true);
     document.addEventListener('click', beforeClick, true);
     document.addEventListener('turbo:load', scanPage);

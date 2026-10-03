@@ -8,6 +8,8 @@
 
 :is(
   h1,
+  h2,
+  h3,
   .vcard-fullname,
   [itemprop="name"],
   .AppHeader-context-item-label,

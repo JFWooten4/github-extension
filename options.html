@@ -58,7 +58,7 @@
         <details class="settings-foldout" open>
           <summary>
             <span>Interface</span>
-            <span class="summary-meta">Copilot + tooltips + repository home</span>
+            <span class="summary-meta">Copilot + tooltips + navigation + repository home</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
@@ -73,6 +73,16 @@
               <span>
                 <strong>Hide Copilot</strong>
                 <small>Hide Copilot buttons, navigation links, promotions, and chat panels across GitHub.</small>
+              </span>
+            </label>
+
+            <hr class="preference-divider" />
+
+            <label class="preference">
+              <input id="hide-my-navigation-links" type="checkbox" />
+              <span>
+                <strong>Hide My navigation shortcuts</strong>
+                <small>Hide the My PRs, My Issues, and My Repos buttons from GitHub's top navigation.</small>
               </span>
             </label>
 
@@ -152,7 +162,7 @@
         <details class="settings-foldout" open>
           <summary>
             <span>Pull requests</span>
-            <span class="summary-meta">Diffs + contribution notices</span>
+            <span class="summary-meta">Milestone + contribution notices</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
@@ -168,6 +178,16 @@
               <span>
                 <strong>Hide contributing guidelines reminder</strong>
                 <small>Hide GitHub's “Remember, contributions…” notice when it links to a repository's CONTRIBUTING.md.</small>
+              </span>
+            </label>
+
+            <hr class="preference-divider" />
+
+            <label class="preference">
+              <input id="hide-pull-request-milestone" type="checkbox" />
+              <span>
+                <strong>Hide milestone sidebar item</strong>
+                <small>Hide the Milestone section from pull request sidebars.</small>
               </span>
             </label>
           </div>
