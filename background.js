@@ -1,5 +1,6 @@
 const DEFAULT_SETTINGS = {
   commitTitleEmojis: false,
+  simplifyCommitMessages: false,
   hideCopilot: true,
   hideInboxWhileBusy: true,
   relativeTimesOnly: false,

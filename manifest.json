@@ -37,7 +37,8 @@
         "features/hide-suggested-workflows.js",
         "features/organization-notifications.js",
         "features/relative-times.js",
-        "features/commit-title-emojis.js"
+        "features/commit-title-emojis.js",
+        "features/commit-message-simplifier.js"
       ],
       "run_at": "document_start"
     }

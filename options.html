@@ -129,7 +129,7 @@
         <details class="settings-foldout" open>
           <summary>
             <span>Commits</span>
-            <span class="summary-meta">Commit title emojis</span>
+            <span class="summary-meta">Emojis + concise messages</span>
           </summary>
           <div class="foldout-body">
             <label class="preference">
@@ -137,6 +137,13 @@
               <span>
                 <strong>Add emoji to commit titles</strong>
                 <small>Prefix GitHub web commit and merge titles with an emoji matching the change. Existing emoji prefixes are preserved. Off by default.</small>
+              </span>
+            </label>
+            <label class="preference">
+              <input id="simplify-commit-messages" type="checkbox" />
+              <span>
+                <strong>Simplify commit messages</strong>
+                <small>Shorten GitHub web commit and merge titles, using the description as context. Clear the description on submission to create a title-only commit. Existing emoji prefixes are preserved. Off by default.</small>
               </span>
             </label>
           </div>
