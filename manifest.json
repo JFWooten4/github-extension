@@ -30,14 +30,20 @@
       "js": [
         "features/hide-inbox-while-busy.js",
         "features/hide-copilot.js",
+        "features/hide-my-navigation-links.js",
         "features/mute-users.js",
         "features/block-tooltips.js",
         "features/hide-contributing-guidelines-notice.js",
-        "features/hide-empty-development-copy.js",
+        "features/hide-pull-request-milestone.js",
         "features/hide-footer.js",
         "features/hide-suggested-workflows.js",
+        "features/hide-unused-repository-tabs.js",
         "features/organization-notifications.js",
-        "features/relative-times.js"
+        "features/relative-times.js",
+        "features/commit-title-emojis.js",
+        "features/commit-message-simplifier.js",
+        "features/hide-notification-reason.js",
+        "features/hide-empty-development-copy.js"
       ],
       "run_at": "document_start"
     }

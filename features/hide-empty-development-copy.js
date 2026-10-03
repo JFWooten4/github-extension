@@ -40,8 +40,8 @@
     let current = hint.parentElement;
 
     while (current && current !== document.body) {
-      if (hasDevelopmentHeading(current) && exactTextElements(current, EMPTY_TEXT).length > 0) {
-        return current;
+      if (hasDevelopmentHeading(current)) {
+        return exactTextElements(current, EMPTY_TEXT).length > 0 ? current : null;
       }
       current = current.parentElement;
     }

@@ -9,6 +9,7 @@
   const STYLE_ID = 'github-extension-hide-inbox-style';
   const BUSY_ATTR = 'data-github-viewer-busy';
   const BUSY_CACHE_KEY = 'github-viewer-busy';
+  let currentBusy = null;
   const CHECK_INTERVAL_MS = 60_000;
   const STATUS_URL = '/users/status?circle=0&compact=1&link_mentions=1&truncate=0';
   const BUSY_CONTROL_SELECTOR = [
@@ -52,7 +53,9 @@
     if (!document.documentElement) return;
 
     if (isBusy) {
-      document.documentElement.setAttribute(BUSY_ATTR, 'true');
+      if (document.documentElement.getAttribute(BUSY_ATTR) !== 'true') {
+        document.documentElement.setAttribute(BUSY_ATTR, 'true');
+      }
     } else {
       document.documentElement.removeAttribute(BUSY_ATTR);
     }
@@ -79,6 +82,7 @@
   }
 
   function applyBusyStatus(isBusy) {
+    currentBusy = isBusy;
     cacheBusyStatus(isBusy);
     setBusy(isBusy);
   }
@@ -86,6 +90,7 @@
   function restoreCachedBusyStatus() {
     const cachedBusy = readCachedBusyStatus();
     if (cachedBusy === null) return;
+    currentBusy = cachedBusy;
 
     if (document.documentElement) {
       setBusy(cachedBusy);
@@ -167,13 +172,19 @@
 
   restoreCachedBusyStatus();
 
-  if (!installStyle()) {
-    const observer = new MutationObserver(() => {
-      if (installStyle()) observer.disconnect();
-    });
-
-    observer.observe(document, { childList: true, subtree: true });
-  }
+  // GitHub can reset root attributes or replace the head during navigation.
+  // Keep the last known status applied without another network round trip.
+  const presentationObserver = new MutationObserver(() => {
+    installStyle();
+    if (currentBusy !== null) setBusy(currentBusy);
+  });
+  presentationObserver.observe(document, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: [BUSY_ATTR],
+  });
+  installStyle();
 
   void checkBusyStatus();
   window.setInterval(checkBusyStatus, CHECK_INTERVAL_MS);

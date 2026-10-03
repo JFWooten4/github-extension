@@ -1,11 +1,15 @@
 const DEFAULT_SETTINGS = {
+  commitTitleEmojis: false,
+  simplifyCommitMessages: false,
   hideCopilot: true,
   hideInboxWhileBusy: true,
   relativeTimesOnly: false,
   organizationNotificationInboxesEnabled: false,
   notificationOrganizations: [],
   hideContributingGuidelinesNotice: true,
+  hidePullRequestMilestone: false,
   hideSuggestedWorkflows: false,
+  hideMyNavigationLinks: false,
   muteUsersEnabled: true,
   mutedUsers: [],
 };
