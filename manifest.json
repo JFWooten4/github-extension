@@ -43,7 +43,8 @@
         "features/commit-title-emojis.js",
         "features/commit-message-simplifier.js",
         "features/hide-notification-reason.js",
-        "features/hide-empty-development-copy.js"
+        "features/hide-empty-development-copy.js",
+        "features/wrap-diff-lines.js"
       ],
       "run_at": "document_start"
     }
