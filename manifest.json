@@ -41,7 +41,8 @@
         "features/organization-notifications.js",
         "features/relative-times.js",
         "features/commit-title-emojis.js",
-        "features/commit-message-simplifier.js"
+        "features/commit-message-simplifier.js",
+        "features/hide-notification-reason.js"
       ],
       "run_at": "document_start"
     }
